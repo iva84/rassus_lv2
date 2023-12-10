@@ -1,4 +1,4 @@
-package hr.tel.fer.rassus.producer;
+package hr.fer.tel.rassus.producer;
 
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
