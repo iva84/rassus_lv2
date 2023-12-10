@@ -1,4 +1,4 @@
-package hr.fer.tel.rassus.stupidudp.network;
+package hr.fer.tel.rassus.udp.network;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
