@@ -1,7 +1,3 @@
-/*
- * This code has been developed at Departement of Telecommunications,
- * Faculty of Electrical Engineering and Computing, University of Zagreb.
- */
 package hr.fer.tel.rassus.udp.server;
 
 import hr.fer.tel.rassus.udp.network.SimpleSimulatedDatagramSocket;
@@ -9,26 +5,25 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-/**
- *
- * @author Krešimir Pripužić <kresimir.pripuzic@fer.hr>
- */
 public class UDPServer {
+    private final int id;
+    private final String address;
+    private final int port; // server port
 
-    static final int PORT = 10001; // server port
+    public UDPServer(int id, String address, int port) {
+        this.id = id;
+        this.address = address;
+        this.port = port;
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws IOException {
-
+    public void receive() throws IOException {
         byte[] rcvBuf = new byte[256]; // received bytes
         byte[] sendBuf = new byte[256];// sent bytes
         String rcvStr;
 
         // create a UDP socket and bind it to the specified port on the local
         // host
-        DatagramSocket socket = new SimpleSimulatedDatagramSocket(PORT, 0.2, 200); //SOCKET -> BIND
+        DatagramSocket socket = new SimpleSimulatedDatagramSocket(this.port, 0.2, 200); //SOCKET -> BIND
 
         while (true) { //OBRADA ZAHTJEVA
             // create a DatagramPacket for receiving packets
@@ -56,5 +51,17 @@ public class UDPServer {
             // send packet
             socket.send(sendPacket); //SENDTO
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getPort() {
+        return port;
     }
 }

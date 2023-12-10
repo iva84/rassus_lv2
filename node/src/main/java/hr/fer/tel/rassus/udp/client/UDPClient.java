@@ -1,30 +1,17 @@
-/*
- * This code has been developed at Departement of Telecommunications,
- * Faculty of Electrical Eengineering and Computing, University of Zagreb.
- */
 package hr.fer.tel.rassus.udp.client;
 
 import hr.fer.tel.rassus.udp.network.*;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Krešimir Pripužić <kresimir.pripuzic@fer.hr>
- */
 public class UDPClient {
+    public UDPClient() {
 
-    static final int PORT = 10001; // server port
+    }
 
-    public static void main(String args[]) throws IOException {
-
-        String sendString = "Any string...";
-
+    public String sendMessage(String message, int serverPort) throws IOException {
         byte[] rcvBuf = new byte[256]; // received bytes
 
         // encode this String into a sequence of bytes using the platform's
@@ -40,13 +27,13 @@ public class UDPClient {
 
         System.out.print("Client sends: ");
         // send each character as a separate datagram packet
-        for (int i = 0; i < sendString.length(); i++) {
+        for (int i = 0; i < message.length(); i++) {
             byte[] sendBuf = new byte[1];// sent bytes
-            sendBuf[0] = (byte) sendString.charAt(i);
+            sendBuf[0] = (byte) message.charAt(i);
 
             // create a datagram packet for sending data
             DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length,
-                    address, PORT);
+                    address, serverPort);
 
             // send a datagram packet from this socket
             socket.send(packet); //SENDTO
@@ -78,5 +65,7 @@ public class UDPClient {
 
         // close the datagram socket
         socket.close(); //CLOSE
+
+        return receiveString.toString();
     }
 }
